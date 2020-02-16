@@ -12,16 +12,10 @@
 
 ### Files modified:
 - [ ] index.html
-- [ ] styles.css
-- [ ] script.js
+- [ ] styles.scss
+- [ ] scripts.js
 - [ ] user.js
-- [ ] userRepository.js
-- [ ] sleep.js
-- [ ] hydration.js
-- [ ] activity.js
 - [ ] user-test.js
-- [ ] userRepository-test.js
-- [ ] sleep-test.js
-- [ ] hydration-test.js
-- [ ] activity-test.js
+- [ ] recipe.js
+- [ ] recipe-test.js
 - [ ] Other files:
