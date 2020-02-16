@@ -7,6 +7,7 @@ class Recipe {
     this.image = recipe.image;
     this.tags = recipe.tags;
     this.ingredients = recipe.ingredients;
+    this.instructions = recipe.instructions;
   }
   calculateIngredientsCost() {
     let totalInCents = this.ingredients.reduce((total, item) => {
@@ -17,9 +18,9 @@ class Recipe {
 
     return dollars = dollars.toLocaleString("en-US", {style:"currency", currency:"USD"});
   }
-  // getInstructions() {
-  //   return this.ingredients.instructions;
-  // }
+  getInstructions() {
+    return this.instructions;
+  }
 }
 
 module.exports = Recipe;
