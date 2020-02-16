@@ -1,3 +1,5 @@
+let ingredientsDB = require('../src/data/ingredient-data');
+
 class Recipe {
   constructor(recipe) {
     this.id = recipe.id;
@@ -7,10 +9,17 @@ class Recipe {
     this.ingredients = recipe.ingredients;
   }
   calculateIngredientsCost() {
-    // return this.ingredients.map(i => {
-    //   ingredientData.find(ingredient => ingredient === i);
-    // });
+    let totalInCents = this.ingredients.reduce((total, item) => {
+      let itemPrice = ingredientsDB.default.find(ingredient => ingredient.id === item.id).estimatedCostInCents;
+      return total += itemPrice * item.quantity.amount;
+    },0);
+    let dollars = totalInCents / 100;
+
+    return dollars = dollars.toLocaleString("en-US", {style:"currency", currency:"USD"});
   }
+  // getInstructions() {
+  //   return this.ingredients.instructions;
+  // }
 }
 
 module.exports = Recipe;
