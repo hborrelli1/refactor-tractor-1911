@@ -7,12 +7,14 @@ describe('User', function() {
   let user;
   let userInfo;
   let recipe;
+  let recipe2;
 
   beforeEach(function() {
     userInfo = data.users[0];
     user = new User(userInfo)
 
     recipe = {name: 'Chicken Parm', type: ['italian', 'dinner']};
+    recipe2 = {name: 'Pork Tacos', type: ['mexican', 'dinner']};
   });
 
   it('should be a function', function() {
@@ -49,12 +51,19 @@ describe('User', function() {
     expect(user.recipesToCook[0].name).to.equal('Chicken Parm');
   });
 
-  it('should be able to filter recipes by type', function() {
+  it('should be able to filter favoriteRecipes or recipesToCook by type', function() {
     user.saveRecipe(recipe);
-    expect(user.filterRecipes('italian')).to.deep.equal([recipe]);
+    user.saveRecipe(recipe2);
+    user.decideToCook(recipe2);
+
+    expect(user.filterRecipes('italian', 'favoriteRecipes')).to.deep.equal([recipe]);
+    expect(user.filterRecipes('mexican', 'recipesToCook')).to.deep.equal([recipe2]);
   });
 
-  it('should be able to search recipes by name', function() {
+  // How to Test sad paths here. What happens if there are
+  // no matches?
+
+  it('should be able to search recipes by name or ingredient', function() {
     user.saveRecipe(recipe);
     expect(user.searchForRecipe('Chicken Parm')).to.deep.equal([recipe]);
   });
