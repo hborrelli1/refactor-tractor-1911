@@ -12,7 +12,7 @@ class Recipe {
   calculateIngredientsCost() {
     let totalInCents = this.ingredients.reduce((total, item) => {
       let itemPrice = ingredientsDB.default.find(ingredient => ingredient.id === item.id).estimatedCostInCents;
-      return total += itemPrice * item.quantity.amount;
+      return total + itemPrice * item.quantity.amount;
     },0);
     let dollars = totalInCents / 100;
 
