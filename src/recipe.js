@@ -18,9 +18,6 @@ class Recipe {
 
     return dollars = dollars.toLocaleString("en-US", {style:"currency", currency:"USD"});
   }
-  getInstructions() {
-    return this.instructions;
-  }
 }
 
 module.exports = Recipe;
