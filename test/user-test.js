@@ -51,17 +51,19 @@ describe('User', function() {
     expect(user.recipesToCook[0].name).to.equal('Chicken Parm');
   });
 
-  it('should be able to filter favoriteRecipes or recipesToCook by type', function() {
+  it('should be able to filter favoriteRecipes by type', function() {
     user.saveRecipe(recipe);
-    user.saveRecipe(recipe2);
-    user.decideToCook(recipe2);
 
     expect(user.filterRecipes('italian', 'favoriteRecipes')).to.deep.equal([recipe]);
-    expect(user.filterRecipes('mexican', 'recipesToCook')).to.deep.equal([recipe2]);
+    expect(user.filterRecipes('mexican', 'favoriteRecipes')).to.deep.equal([]);
   });
 
-  // How to Test sad paths here. What happens if there are
-  // no matches?
+  it('should be able to filter recipesToCook by type', function() {
+    user.decideToCook(recipe2);
+
+    expect(user.filterRecipes('italian', 'recipesToCook')).to.deep.equal([]);
+    expect(user.filterRecipes('mexican', 'recipesToCook')).to.deep.equal([recipe2]);
+  });
 
   it('should be able to search recipes by name or ingredient', function() {
     user.saveRecipe(recipe);
