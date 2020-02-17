@@ -10,7 +10,7 @@ describe('Recipe', function() {
   let ingredientsData;
 
   beforeEach(function() {
-    recipeInfo = data.recipeData[0];
+    recipeInfo = data[0];
     recipe = new Recipe(recipeInfo);
     ingredientsData = ingredientsDB.ingredientsData;
   })
