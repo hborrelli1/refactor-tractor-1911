@@ -2,7 +2,11 @@ import $ from 'jquery';
 import users from './data/users-data';
 import recipeData from  './data/recipe-data';
 import ingredientData from './data/ingredient-data';
-import appleLogo from './images/apple-logo.png';
+import './images/apple-logo.png';
+import './images/apple-logo-outline.png';
+import './images/seasoning.png';
+import './images/cookbook.png';
+import './images/search.png';
 
 import './css/base.scss';
 import './css/styles.scss';
@@ -26,8 +30,8 @@ let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
 let tagList = document.querySelector(".tag-list");
 let user;
 
-var homeImg = document.getElementById('appleLogo');
-homeImg.src = appleLogo;
+// var homeImg = document.getElementById('appleLogo');
+// homeImg.src = appleLogo;
 
 window.addEventListener("load", createCards);
 window.addEventListener("load", findTags);
@@ -208,7 +212,7 @@ function generateRecipeTitle(recipe, ingredients) {
     <button id="exit-recipe-btn">X</button>
     <h3 id="recipe-title">${recipe.name}</h3>
     <h4>Ingredients</h4>
-    <p>${ingredients}</p>`
+    <ul>${ingredients}</ul>`
   fullRecipeInfo.insertAdjacentHTML("beforeend", recipeTitle);
 }
 
@@ -218,8 +222,8 @@ function addRecipeImage(recipe) {
 
 function generateIngredients(recipe) {
   return recipe && recipe.ingredients.map(i => {
-    return `${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})`
-  }).join(", ");
+    return `<li>${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})</li>`
+  }).join("");
 }
 
 function generateInstructions(recipe) {
@@ -300,7 +304,7 @@ function showAllRecipes() {
 // CREATE AND USE PANTRY
 function findPantryInfo() {
   user.pantry.forEach(item => {
-    let itemInfo = ingredientsData.find(ingredient => {
+    let itemInfo = ingredientData.find(ingredient => {
       return ingredient.id === item.ingredient;
     });
     let originalIngredient = pantryInfo.find(ingredient => {
