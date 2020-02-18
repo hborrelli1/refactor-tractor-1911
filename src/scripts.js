@@ -30,9 +30,6 @@ let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
 let tagList = document.querySelector(".tag-list");
 let user;
 
-// var homeImg = document.getElementById('appleLogo');
-// homeImg.src = appleLogo;
-
 window.addEventListener("load", createCards);
 window.addEventListener("load", findTags);
 window.addEventListener("load", generateUser);
