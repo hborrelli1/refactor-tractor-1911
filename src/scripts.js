@@ -2,6 +2,7 @@ import $ from 'jquery';
 import users from './data/users-data';
 import recipeData from  './data/recipe-data';
 import ingredientData from './data/ingredient-data';
+import appleLogo from './images/apple-logo.png';
 
 import './css/base.scss';
 import './css/styles.scss';
@@ -25,6 +26,8 @@ let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
 let tagList = document.querySelector(".tag-list");
 let user;
 
+var homeImg = document.getElementById('appleLogo');
+homeImg.src = appleLogo;
 
 window.addEventListener("load", createCards);
 window.addEventListener("load", findTags);
@@ -75,7 +78,7 @@ function addToDom(recipeInfo, shortRecipeName) {
         </div>
       </div>
       <h4>${recipeInfo.tags[0]}</h4>
-      <img src="../images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
+      <img src="./images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
     </div>`
   main.insertAdjacentHTML("beforeend", cardHtml);
 }
@@ -154,10 +157,10 @@ function addToMyRecipes() {
   if (event.target.className === "card-apple-icon") {
     let cardId = parseInt(event.target.closest(".recipe-card").id)
     if (!user.favoriteRecipes.includes(cardId)) {
-      event.target.src = "../images/apple-logo.png";
+      event.target.src = "./images/apple-logo.png";
       user.saveRecipe(cardId);
     } else {
-      event.target.src = "../images/apple-logo-outline.png";
+      event.target.src = "./images/apple-logo-outline.png";
       user.removeRecipe(cardId);
     }
   } else if (event.target.id === "exit-recipe-btn") {
