@@ -2,6 +2,8 @@ import $ from 'jquery';
 import users from './data/users-data';
 import recipeData from  './data/recipe-data';
 import ingredientData from './data/ingredient-data';
+import domUpdates from './domUpdates';
+
 import './images/apple-logo.png';
 import './images/apple-logo-outline.png';
 import './images/seasoning.png';
@@ -14,33 +16,40 @@ import './css/styles.scss';
 import User from './user';
 import Recipe from './recipe';
 
-let allRecipesBtn = document.querySelector(".show-all-btn");
-let filterBtn = document.querySelector(".filter-btn");
+// let allRecipesBtn = document.querySelector(".show-all-btn");
+// let filterBtn = document.querySelector(".filter-btn");
+// let main = document.querySelector("main");
+// let pantryBtn = document.querySelector(".my-pantry-btn");
+// let savedRecipesBtn = document.querySelector(".saved-recipes-btn");
+// let searchBtn = document.querySelector(".search-btn");
+// let searchForm = document.querySelector("#search");
+// let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
 let fullRecipeInfo = document.querySelector(".recipe-instructions");
-let main = document.querySelector("main");
-let menuOpen = false;
-let pantryBtn = document.querySelector(".my-pantry-btn");
+// let menuOpen = false;
 let pantryInfo = [];
 let recipes = [];
-let savedRecipesBtn = document.querySelector(".saved-recipes-btn");
-let searchBtn = document.querySelector(".search-btn");
-let searchForm = document.querySelector("#search");
 let searchInput = document.querySelector("#search-input");
-let showPantryRecipes = document.querySelector(".show-pantry-recipes-btn");
 let tagList = document.querySelector(".tag-list");
 let user;
 
 window.addEventListener("load", createCards);
 window.addEventListener("load", findTags);
 window.addEventListener("load", generateUser);
-allRecipesBtn.addEventListener("click", showAllRecipes);
-filterBtn.addEventListener("click", findCheckedBoxes);
-main.addEventListener("click", addToMyRecipes);
-pantryBtn.addEventListener("click", toggleMenu);
-savedRecipesBtn.addEventListener("click", showSavedRecipes);
-searchBtn.addEventListener("click", searchRecipes);
-showPantryRecipes.addEventListener("click", findCheckedPantryBoxes);
-searchForm.addEventListener("submit", pressEnterSearch);
+// allRecipesBtn.addEventListener("click", showAllRecipes);
+// filterBtn.addEventListener("click", findCheckedBoxes);
+// pantryBtn.addEventListener("click", toggleMenu);
+// savedRecipesBtn.addEventListener("click", showSavedRecipes);
+// searchBtn.addEventListener("click", searchRecipes);
+// showPantryRecipes.addEventListener("click", findCheckedPantryBoxes);
+// searchForm.addEventListener("submit", pressEnterSearch);
+$('.show-all-btn').on("click", showAllRecipes);
+$('.filter-btn').on("click", findCheckedBoxes);
+$('main').on("click", addToMyRecipes);
+$('.my-pantry-btn').on("click", domUpdates.toggleMenu);
+$('.saved-recipes-btn').on("click", showSavedRecipes);
+$('.search-btn').on("click", searchRecipes);
+$('.show-pantry-recipes-btn').on("click", findCheckedPantryBoxes);
+$('#search').on("submit", pressEnterSearch);
 
 // GENERATE A USER ON LOAD
 function generateUser() {
@@ -50,8 +59,8 @@ function generateUser() {
     <div class="welcome-msg">
       <h1>Welcome ${firstName}!</h1>
     </div>`;
-  document.querySelector(".banner-image").insertAdjacentHTML("afterbegin",
-    welcomeMsg);
+  // document.querySelector(".banner-image").insertAdjacentHTML("afterbegin",
+  $(".banner-image").append(welcomeMsg);
   findPantryInfo();
 }
 
@@ -64,25 +73,27 @@ function createCards() {
     if (recipeInfo.name.length > 40) {
       shortRecipeName = recipeInfo.name.substring(0, 40) + "...";
     }
-    addToDom(recipeInfo, shortRecipeName)
+    // addToDom(recipeInfo, shortRecipeName)
+    domUpdates.addToDom(recipeInfo, shortRecipeName);
   });
 }
 
-function addToDom(recipeInfo, shortRecipeName) {
-  let cardHtml = `
-    <div class="recipe-card" id=${recipeInfo.id}>
-      <h3 maxlength="40">${shortRecipeName}</h3>
-      <div class="card-photo-container">
-        <img src=${recipeInfo.image} class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
-        <div class="text">
-          <div>Click for Instructions</div>
-        </div>
-      </div>
-      <h4>${recipeInfo.tags[0]}</h4>
-      <img src="./images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
-    </div>`
-  main.insertAdjacentHTML("beforeend", cardHtml);
-}
+// function addToDom(recipeInfo, shortRecipeName) {
+//   let cardHtml = `
+//     <div class="recipe-card" id=${recipeInfo.id}>
+//       <h3 maxlength="40">${shortRecipeName}</h3>
+//       <div class="card-photo-container">
+//         <img src=${recipeInfo.image} class="card-photo-preview" alt="${recipeInfo.name} recipe" title="${recipeInfo.name} recipe">
+//         <div class="text">
+//           <div>Click for Instructions</div>
+//         </div>
+//       </div>
+//       <h4>${recipeInfo.tags[0]}</h4>
+//       <img src="./images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
+//     </div>`
+//   main.insertAdjacentHTML("beforeend", cardHtml);
+// }
+
 
 // FILTER BY RECIPE TAGS
 function findTags() {
@@ -95,22 +106,24 @@ function findTags() {
     });
   });
   tags.sort();
-  listTags(tags);
+
+  // listTags(tags);
+  domUpdates.listTags(tags);
 }
 
-function listTags(allTags) {
-  allTags.forEach(tag => {
-    let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">
-      <label for="${tag}">${capitalize(tag)}</label></li>`;
-    tagList.insertAdjacentHTML("beforeend", tagHtml);
-  });
-}
-
-function capitalize(words) {
-  return words.split(" ").map(word => {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }).join(" ");
-}
+// function listTags(allTags) {
+//   allTags.forEach(tag => {
+//     let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">
+//       <label for="${tag}">${capitalize(tag)}</label></li>`;
+//     $('.tag-list').append(tagHtml);
+//   });
+// }
+//
+// function capitalize(words) {
+//   return words.split(" ").map(word => {
+//     return word.charAt(0).toUpperCase() + word.slice(1);
+//   }).join(" ");
+// }
 
 function findCheckedBoxes() {
   let tagCheckboxes = document.querySelectorAll(".checked-tag");
@@ -219,7 +232,7 @@ function addRecipeImage(recipe) {
 
 function generateIngredients(recipe) {
   return recipe && recipe.ingredients.map(i => {
-    return `<li>${capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})</li>`
+    return `<li>${domUpdates.capitalize(i.name)} (${i.quantity.amount} ${i.quantity.unit})</li>`
   }).join("");
 }
 
@@ -248,10 +261,10 @@ function showMyRecipesBanner() {
   document.querySelector(".my-recipes-banner").style.display = "block";
 }
 
-function showWelcomeBanner() {
-  document.querySelector(".welcome-msg").style.display = "flex";
-  document.querySelector(".my-recipes-banner").style.display = "none";
-}
+// function showWelcomeBanner() {
+//   document.querySelector(".welcome-msg").style.display = "flex";
+//   document.querySelector(".my-recipes-banner").style.display = "none";
+// }
 
 // SEARCH RECIPES
 function pressEnterSearch(event) {
@@ -280,22 +293,22 @@ function createRecipeObject(recipes) {
   return recipes
 }
 
-function toggleMenu() {
-  var menuDropdown = document.querySelector(".drop-menu");
-  menuOpen = !menuOpen;
-  if (menuOpen) {
-    menuDropdown.style.display = "block";
-  } else {
-    menuDropdown.style.display = "none";
-  }
-}
+// function toggleMenu() {
+//   var menuDropdown = document.querySelector(".drop-menu");
+//   menuOpen = !menuOpen;
+//   if (menuOpen) {
+//     menuDropdown.style.display = "block";
+//   } else {
+//     menuDropdown.style.display = "none";
+//   }
+// }
 
 function showAllRecipes() {
   recipes.forEach(recipe => {
     let domRecipe = document.getElementById(`${recipe.id}`);
     domRecipe.style.display = "block";
   });
-  showWelcomeBanner();
+  domUpdates.showWelcomeBanner();
 }
 
 // CREATE AND USE PANTRY
@@ -315,17 +328,17 @@ function findPantryInfo() {
       pantryInfo.push({name: itemInfo.name, count: item.amount});
     }
   });
-  displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
+  domUpdates.displayPantryInfo(pantryInfo.sort((a, b) => a.name.localeCompare(b.name)));
 }
 
-function displayPantryInfo(pantry) {
-  pantry.forEach(ingredient => {
-    let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">
-      <label for="${ingredient.name}">${ingredient.name}, ${ingredient.count}</label></li>`;
-    document.querySelector(".pantry-list").insertAdjacentHTML("beforeend",
-      ingredientHtml);
-  });
-}
+// function displayPantryInfo(pantry) {
+//   pantry.forEach(ingredient => {
+//     let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">
+//       <label for="${ingredient.name}">${ingredient.name}, ${ingredient.count}</label></li>`;
+//     document.querySelector(".pantry-list").insertAdjacentHTML("beforeend",
+//       ingredientHtml);
+//   });
+// }
 
 function findCheckedPantryBoxes() {
   let pantryCheckboxes = document.querySelectorAll(".pantry-checkbox");
