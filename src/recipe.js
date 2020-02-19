@@ -15,7 +15,7 @@ class Recipe {
       return total + itemPrice * item.quantity.amount;
     },0);
     let dollars = totalInCents / 100;
-
+    
     return dollars = dollars.toLocaleString("en-US", {style:"currency", currency:"USD"});
   }
 }
