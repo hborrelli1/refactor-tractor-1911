@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 
 import User from '../src/user';
+import Pantry from '../src/pantry';
 import data from '../src/data/users-data';
 
 describe('User', function() {
@@ -11,7 +12,7 @@ describe('User', function() {
 
   beforeEach(function() {
     userInfo = data[0];
-    user = new User(userInfo)
+    user = new User(userInfo);
 
     recipe = {name: 'Chicken Parm', type: ['italian', 'dinner']};
     recipe2 = {name: 'Pork Tacos', type: ['mexican', 'dinner']};
@@ -30,7 +31,8 @@ describe('User', function() {
   });
 
   it('should initialize with a pantry', function() {
-    expect(user.pantry[0].ingredient).to.eq(11477);
+    expect(user.pantry).to.be.an.instanceof(Pantry);
+    expect(user.pantry.ingredients[0].ingredient).to.eq(11477);
   });
 
   it('should initialize with an empty favoriteRecipes array', function() {
