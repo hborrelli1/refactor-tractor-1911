@@ -53,53 +53,48 @@ let domUpdates = {
     } else {
       $('.drop-menu').css("display", "none");
     }
+  },
+
+  showMyRecipesBanner() {
+    // document.querySelector(".welcome-msg").style.display = "none";
+    $(".welcome-msg").css("display", "none");
+    // document.querySelector(".my-recipes-banner").style.display = "block";
+    $(".my-recipes-banner").css("display", "block");
+  },
+
+  generateRecipeTitle(recipe, ingredients) {
+    let recipeTitle = `
+      <button id="exit-recipe-btn">X</button>
+      <h3 id="recipe-title">${recipe.name}</h3>
+      <h4>Ingredients</h4>
+      <ul>${ingredients}</ul>`
+    $('.recipe-instructions').append(recipeTitle);
+  },
+
+  addRecipeImage(recipe) {
+    let background = recipe.image;
+    $("#recipe-title").css("background-image", "url('" + background + "')");
+  },
+
+  generateInstructions(recipe) {
+    let instructionsList = "";
+    let instructions = recipe.instructions.map(i => {
+      return i.instruction
+    });
+    instructions.forEach(i => {
+      instructionsList += `<li>${i}</li>`
+    });
+    $('.recipe-instructions').append("<h4>Instructions</h4>");
+    $('.recipe-instructions').append(`<ol>${instructionsList}</ol>`);
+  },
+
+  exitRecipe(fullRecipeInfo) {
+    while (fullRecipeInfo.firstChild &&
+      fullRecipeInfo.removeChild(fullRecipeInfo.firstChild));
+    $('.recipe-instructions').css('display', 'none');
+    $("#overlay").remove();
   }
-
-  // showAllRecipes(recipes) {
-  //   recipes.forEach(recipe => {
-      // let domRecipe = `#${recipe.id}`;
-      // $(domRecipe).css("display", "block");
-  //   });
-  //   this.showWelcomeBanner();
-  // }
-
-  // findCheckedBoxes() {
-  //   let tagCheckboxes = $(".checked-tag");
-  //   let checkboxInfo = Array.from(tagCheckboxes)
-  //   let selectedTags = checkboxInfo.filter(box => {
-  //     return box.checked;
-  //   })
-  //   this.findTaggedRecipes(selectedTags);
-  // },
-
-  // findTaggedRecipes(selected) {
-  //   let filteredResults = [];
-  //   selected.forEach(tag => {
-  //     let allRecipes = recipes.filter(recipe => {
-  //       return recipe.tags.includes(tag.id);
-  //     });
-  //     allRecipes.forEach(recipe => {
-  //       if (!filteredResults.includes(recipe)) {
-  //         filteredResults.push(recipe);
-  //       }
-  //     })
-  //   });
-  //   this.showAllRecipes();
-  //   if (filteredResults.length > 0) {
-  //     filterRecipes(filteredResults);
-  //   }
-  // },
-
-  // hideUnselectedRecipes(foundRecipes) {
-  //   foundRecipes.forEach(recipe => {
-  //     let recipeId = '#' + recipe.id;
-  //     // domRecipe.style.display = "none";1
-  //     $(recipeId).css('display', 'none');
-  //   });
-  // }
-
-
-
+  
 };
 
 export default  domUpdates;
