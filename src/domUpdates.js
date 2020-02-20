@@ -56,9 +56,7 @@ let domUpdates = {
   },
 
   showMyRecipesBanner() {
-    // document.querySelector(".welcome-msg").style.display = "none";
     $(".welcome-msg").css("display", "none");
-    // document.querySelector(".my-recipes-banner").style.display = "block";
     $(".my-recipes-banner").css("display", "block");
   },
 
@@ -94,7 +92,7 @@ let domUpdates = {
     $('.recipe-instructions').css('display', 'none');
     $("#overlay").remove();
   }
-  
+
 };
 
 export default  domUpdates;
