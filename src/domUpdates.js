@@ -19,6 +19,15 @@ let domUpdates = {
     $('main').append(cardHtml);
   },
 
+  displayFirstName(user) {
+    let welcomeMsg = `
+    <div class="welcome-msg">
+    <h1>Welcome ${user.displayFirstName()}!</h1>
+    </div>`;
+
+    $('.banner-image').append(welcomeMsg);
+  },
+
   listTags(allTags) {
     allTags.forEach(tag => {
       let tagHtml = `<li><input type="checkbox" class="checked-tag" id="${tag}">
@@ -38,10 +47,13 @@ let domUpdates = {
     $(".my-recipes-banner").css("display", "none");
   },
 
-  displayPantryInfo(pantry) {
-    pantry.forEach(ingredient => {
-      let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredient.name}">
-        <label for="${ingredient.name}">${ingredient.name}, ${ingredient.count}</label></li>`;
+  displayPantryInfo(allIngredients, pantry) {
+
+    pantry.forEach(i => {
+      let ingredientName = allIngredients.find(ing => i.ingredient === ing.id).name;
+      console.log(ingredientName);
+      let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredientName}">
+        <label for="${ingredientName}">${ingredientName}, ${i.amount}</label></li>`;
       $(".pantry-list").append(ingredientHtml);
     });
   },
