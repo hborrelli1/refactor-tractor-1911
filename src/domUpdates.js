@@ -51,7 +51,7 @@ let domUpdates = {
 
     pantry.forEach(i => {
       let ingredientName = allIngredients.find(ing => i.ingredient === ing.id).name;
-      console.log(ingredientName);
+      // console.log(ingredientName);
       let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredientName}">
         <label for="${ingredientName}">${ingredientName}, ${i.amount}</label></li>`;
       $(".pantry-list").append(ingredientHtml);
