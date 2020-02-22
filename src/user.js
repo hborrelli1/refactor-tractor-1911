@@ -8,6 +8,11 @@ class User {
     this.favoriteRecipes = [];
     this.recipesToCook = [];
   }
+
+  displayFirstName() {
+    return this.name.split(" ")[0];
+  }
+
   saveRecipe(recipe) {
     this.favoriteRecipes.push(recipe);
   }
