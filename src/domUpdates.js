@@ -48,11 +48,10 @@ let domUpdates = {
   },
 
   displayPantryInfo(allIngredients, pantry) {
-
     pantry.forEach(i => {
       let ingredientName = allIngredients.find(ing => i.ingredient === ing.id).name;
-      // console.log(ingredientName);
-      let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" id="${ingredientName}">
+
+      let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" data-id="${i.ingredient}" id="${ingredientName}">
         <label for="${ingredientName}">${ingredientName}, ${i.amount}</label></li>`;
       $(".pantry-list").append(ingredientHtml);
     });
@@ -104,7 +103,6 @@ let domUpdates = {
     $('.recipe-instructions').css('display', 'none');
     $("#overlay").remove();
   }
-
 };
 
 export default  domUpdates;
