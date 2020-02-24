@@ -301,7 +301,8 @@ function purchaseMissingIngredients(event) {
         let recipeId = event.target.id;
         let recipe = data.recipeData.find(recipe => recipe.id === Number(recipeId));
         let missingIngredients = user.pantry.findMissingIngredients(recipe);
-
+        $('.pantry-list').empty();
+        
         missingIngredients.forEach(ingredient => {
           fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData', {
             method: 'POST',
