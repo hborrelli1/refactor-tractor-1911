@@ -15,6 +15,7 @@ let domUpdates = {
         </div>
         <h4>${recipeInfo.tags[0]}</h4>
         <img src="./images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
+        <img src="./images/chef-1.png" alt="Cook Recipe Icon" class="chef-icon">
       </div>`
     $('main').append(cardHtml);
   },
@@ -102,6 +103,25 @@ let domUpdates = {
       fullRecipeInfo.removeChild(fullRecipeInfo.firstChild));
     $('.recipe-instructions').css('display', 'none');
     $("#overlay").remove();
+  },
+
+  generateMissingIngredients(user, recipe, allIngredients) {
+    let missingIngredients = user.pantry.findMissingIngredients(recipe);
+    let missingIngredientInfo = '';
+
+    missingIngredients.forEach(ing => {
+      let name = allIngredients.find(ingredient => ingredient.id === ing.id).name;
+      missingIngredientInfo += `<li>${this.capitalize(name)}: (<strong>${ing.amountNeeded} ${ing.quantity.unit}</strong>)</li>`;
+    })
+
+    $('.recipe-instructions').append("<h4>Missing Ingredients</h4>");
+    $('.recipe-instructions').append(`<ul>${missingIngredientInfo}</ul>`);
+  },
+
+  generateCostButton(user, recipe, allIngredients) {
+    let missingIngredientsTotal = user.pantry.calculateCost(recipe, allIngredients);
+
+    $('.recipe-instructions').append(`<button id="${recipe.id}" class='purchase-ingredients'>Missing Ingredients <span>${missingIngredientsTotal}</span></button>`);
   }
 };
 

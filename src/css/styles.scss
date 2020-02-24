@@ -266,12 +266,16 @@ main {
   }
 }
 
-.card-apple-icon {
+.card-apple-icon, .chef-icon {
   cursor: pointer;
   float: right;
   height: 50px;
   padding-bottom: 10px;
   width: 45px;
+}
+
+.chef-icon {
+  margin-right:10px;
 }
 
 .card-photo-preview {
@@ -332,6 +336,16 @@ main {
   height: 40px;
   margin-top: 20px;
   width: 200px;
+}
+
+.purchase-ingredients {
+  padding: 10px 20px;
+  // border: 2px solid green;
+  @extend .filter-btn;
+
+  span {
+    font-weight:600;
+  }
 }
 
 /* PANTRY LIST */

@@ -23,7 +23,9 @@ class Pantry {
     let requiredIngredients = recipe.ingredients
       .map(ingredient => {
         let requiredAmount = ingredient.quantity.amount;
-        let amountOnHand = this.findMatchingIngredient(ingredient).amount || 0;
+        let amountOnHand = this.findMatchingIngredient(ingredient) ?
+          this.findMatchingIngredient(ingredient).amount :
+          0;
         ingredient.amountNeeded = requiredAmount - amountOnHand;
         return ingredient;
       });
@@ -37,7 +39,7 @@ class Pantry {
       let cost = match.estimatedCostInCents * item.amountNeeded;
       return sum + cost;
     }, 0);
-    return '$' + (cents / 100);
+    return '$' + (cents / 100).toFixed(2);
   }
 
   addRequiredIngredients(recipe) {
