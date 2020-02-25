@@ -311,6 +311,12 @@ main {
 }
 
 /* BUTTONS */
+button {
+  &:disabled {
+    cursor:no-drop;
+    opacity:.5;
+  }
+}
 .filter-btn {
   background-color: $grey-green;
   border: 0;
@@ -346,6 +352,11 @@ main {
   span {
     font-weight:600;
   }
+}
+
+.cook-recipe {
+  @extend .purchase-ingredients;
+  margin-left:10px;
 }
 
 /* PANTRY LIST */

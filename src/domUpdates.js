@@ -15,7 +15,6 @@ let domUpdates = {
         </div>
         <h4>${recipeInfo.tags[0]}</h4>
         <img src="./images/apple-logo-outline.png" alt="unfilled apple icon" class="card-apple-icon">
-        <img src="./images/chef-1.png" alt="Cook Recipe Icon" class="chef-icon">
       </div>`
     $('main').append(cardHtml);
   },
@@ -49,9 +48,10 @@ let domUpdates = {
   },
 
   displayPantryInfo(allIngredients, pantry) {
+    $('.pantry-list').empty();
+
     pantry.forEach(i => {
       let ingredientName = allIngredients.find(ing => i.ingredient === ing.id).name;
-
       let ingredientHtml = `<li><input type="checkbox" class="pantry-checkbox" data-id="${i.ingredient}" id="${ingredientName}">
         <label for="${ingredientName}">${ingredientName}, ${i.amount}</label></li>`;
       $(".pantry-list").append(ingredientHtml);
@@ -108,21 +108,29 @@ let domUpdates = {
   generateMissingIngredients(user, recipe, allIngredients) {
     let missingIngredients = user.pantry.findMissingIngredients(recipe);
     let missingIngredientInfo = '';
+    let cookButtonEnabled = (missingIngredients.length >= 1) ? `disabled="true"` : '';
+    let ingredientsEnabled = (missingIngredients.length >= 1) ? '' : `disabled="true"`;
+    let missingIngredientsTotal = user.pantry.calculateCost(recipe, allIngredients);
 
     missingIngredients.forEach(ing => {
       let name = allIngredients.find(ingredient => ingredient.id === ing.id).name;
       missingIngredientInfo += `<li>${this.capitalize(name)}: (<strong>${ing.amountNeeded} ${ing.quantity.unit}</strong>)</li>`;
-    })
+    });
 
-    $('.recipe-instructions').append("<h4>Missing Ingredients</h4>");
-    $('.recipe-instructions').append(`<ul>${missingIngredientInfo}</ul>`);
+    this.updateRecipeModal(recipe, missingIngredientInfo, ingredientsEnabled, cookButtonEnabled, missingIngredientsTotal);
   },
 
-  generateCostButton(user, recipe, allIngredients) {
-    let missingIngredientsTotal = user.pantry.calculateCost(recipe, allIngredients);
+  updateRecipeModal(recipe, missingIngredientInfo, ingredientsEnabled, cookButtonEnabled, missingIngredientsTotal) {
+    $('.missing-ingredient-title, .recipe-missing-ingredients').remove();
+    $(`button#${recipe.id}`).remove();
+    $(`button[data-id='${recipe.id}']`).remove();
 
-    $('.recipe-instructions').append(`<button id="${recipe.id}" class='purchase-ingredients'>Missing Ingredients <span>${missingIngredientsTotal}</span></button>`);
+    $('.recipe-instructions').append("<h4 class='missing-ingredient-title'>Missing Ingredients</h4>");
+    $('.recipe-instructions').append(`<ul class="recipe-missing-ingredients">${missingIngredientInfo}</ul>`);
+    $('.recipe-instructions').append(`<button id="${recipe.id}" class='purchase-ingredients' ${ingredientsEnabled}>Buy Missing Ingredients <span>${missingIngredientsTotal}</span></button>`);
+    $('.recipe-instructions').append(`<button data-id="${recipe.id}" class='cook-recipe' ${cookButtonEnabled}>Cook Recipe</button>`);
   }
+
 };
 
 export default  domUpdates;

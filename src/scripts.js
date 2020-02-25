@@ -1,7 +1,4 @@
 import $ from 'jquery';
-// import users from './data/users-data';
-// import recipeData from  './data/recipe-data';
-// import ingredientData from './data/ingredient-data';
 import domUpdates from './domUpdates';
 
 import './images/apple-logo.png';
@@ -24,7 +21,7 @@ let searchInput = document.querySelector("#search-input");
 let tagList = document.querySelector(".tag-list");
 let user;
 let allIngredients;
-let randNum
+let randNum;
 
 window.addEventListener("load", generateUser);
 window.addEventListener("load", fetchRecipes);
@@ -46,9 +43,7 @@ function generateUser() {
   fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
     .then(response => response.json())
     .then(data => {
-
       randNum = Math.floor(Math.random() * data.wcUsersData.length);
-      console.log(randNum);
       user = new User(data.wcUsersData[randNum]);
 
       domUpdates.displayFirstName(user);
@@ -194,7 +189,7 @@ function openRecipeInfo(event) {
       domUpdates.addRecipeImage(recipe);
       domUpdates.generateInstructions(recipe);
       domUpdates.generateMissingIngredients(user, recipe, allIngredients);
-      domUpdates.generateCostButton(user, recipe, allIngredients);
+      // domUpdates.generateCostButton(user, recipe, allIngredients);
       fullRecipeInfo.insertAdjacentHTML("beforebegin", "<section id='overlay'></div>");
     })
     .catch(error => console.log(error.message));
@@ -303,7 +298,6 @@ function purchaseMissingIngredients(event) {
         let recipeId = event.target.id;
         let recipe = data.recipeData.find(recipe => recipe.id === Number(recipeId));
         let missingIngredients = user.pantry.findMissingIngredients(recipe);
-        $('.pantry-list').empty();
 
         missingIngredients.forEach(ingredient => {
           fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData', {
@@ -319,14 +313,9 @@ function purchaseMissingIngredients(event) {
           })
           .then(res => res.json())
           .then(data => {
-            console.log(data);
-            // Fetch updated user info.
-            // Overwrite current user pantry
-            // Then run the DOM updates.
             fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
               .then(response => response.json())
               .then(data => {
-                console.log(randNum);
                 user = new User(data.wcUsersData[randNum]);
                 domUpdates.generateMissingIngredients(user, recipe, allIngredients);
                 domUpdates.displayPantryInfo(allIngredients, user.pantry.ingredients);
@@ -345,4 +334,43 @@ function purchaseMissingIngredients(event) {
 function recipeCardEventHandler(event) {
   addToMyRecipes(event);
   purchaseMissingIngredients(event);
+  cookRecipe(event);
+}
+
+function cookRecipe(event) {
+  if (event.target.classList.contains('cook-recipe')) {
+    fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/recipes/recipeData')
+      .then(response => response.json())
+      .then(data => {
+        let recipeId = event.target.dataset.id;
+        let recipe = data.recipeData.find(recipe => recipe.id === Number(recipeId));
+
+        recipe.ingredients.forEach(ingredient => {
+          fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              'userID': user.id,
+              'ingredientID': ingredient.id,
+              'ingredientModification': -(ingredient.quantity.amount)
+            })
+          })
+          .then(res => res.json())
+          .then(data => {
+            fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
+              .then(response => response.json())
+              .then(data => {
+                user = new User(data.wcUsersData[randNum]);
+                domUpdates.generateMissingIngredients(user, recipe, allIngredients);
+                domUpdates.displayPantryInfo(allIngredients, user.pantry.ingredients);
+              })
+              .catch(err => err.message);
+          })
+          .catch(err => console.log(err.message));
+        });
+      })
+      .catch(error => console.log(error.message));
+  }
 }
