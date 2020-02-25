@@ -12,7 +12,7 @@ class Pantry {
         list.push(item);
       return list;
     }, [])
-    return cleanedData;
+    return cleanedData.filter(item => item.amount > 0);
   }
 
   findMatchingIngredient(ingredient) {
