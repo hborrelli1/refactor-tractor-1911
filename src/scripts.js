@@ -24,6 +24,7 @@ let searchInput = document.querySelector("#search-input");
 let tagList = document.querySelector(".tag-list");
 let user;
 let allIngredients;
+let randNum
 
 window.addEventListener("load", generateUser);
 window.addEventListener("load", fetchRecipes);
@@ -46,7 +47,8 @@ function generateUser() {
     .then(response => response.json())
     .then(data => {
 
-      let randNum = Math.floor(Math.random() * data.wcUsersData.length);
+      randNum = Math.floor(Math.random() * data.wcUsersData.length);
+      console.log(randNum);
       user = new User(data.wcUsersData[randNum]);
 
       domUpdates.displayFirstName(user);
@@ -302,7 +304,7 @@ function purchaseMissingIngredients(event) {
         let recipe = data.recipeData.find(recipe => recipe.id === Number(recipeId));
         let missingIngredients = user.pantry.findMissingIngredients(recipe);
         $('.pantry-list').empty();
-        
+
         missingIngredients.forEach(ingredient => {
           fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData', {
             method: 'POST',
@@ -318,8 +320,19 @@ function purchaseMissingIngredients(event) {
           .then(res => res.json())
           .then(data => {
             console.log(data);
-            domUpdates.generateMissingIngredients(user, recipe, allIngredients);
-            domUpdates.displayPantryInfo(allIngredients, user.pantry.ingredients);
+            // Fetch updated user info.
+            // Overwrite current user pantry
+            // Then run the DOM updates.
+            fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
+              .then(response => response.json())
+              .then(data => {
+                console.log(randNum);
+                user = new User(data.wcUsersData[randNum]);
+                domUpdates.generateMissingIngredients(user, recipe, allIngredients);
+                domUpdates.displayPantryInfo(allIngredients, user.pantry.ingredients);
+              })
+              .catch(err => err.message);
+
           })
           .catch(err => console.log(err.message));
         });
