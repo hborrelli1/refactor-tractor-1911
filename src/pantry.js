@@ -7,8 +7,8 @@ class Pantry {
     let cleanedData = data.reduce((list, item) => {
       let exists = list.find(i => i.ingredient === item.ingredient);
       let index = list.indexOf(exists);
-      exists?
-        list[index].amount += item.amount:
+      exists ?
+        list[index].amount += item.amount :
         list.push(item);
       return list;
     }, [])
@@ -48,7 +48,7 @@ class Pantry {
       let ingredientIndex = this.ingredients.indexOf(matchingIngredient);
       let newAmount = ingredient.quantity.amount;
       matchingIngredient ?
-        this.ingredients[ingredientIndex].amount = newAmount:
+        this.ingredients[ingredientIndex].amount = newAmount :
         this.ingredients.push({ingredient: ingredient.id, amount: ingredient.quantity.amount});
     });
   }
@@ -61,8 +61,8 @@ class Pantry {
         let ingredientIndex = this.ingredients.indexOf(matchingIngredient);
         let newAmount = matchingIngredient.amount - ingredient.quantity.amount;
         newAmount > 0 ?
-          this.ingredients[ingredientIndex].amount = newAmount:
-          this.ingredients.splice(ingredientIndex, 1);;
+          this.ingredients[ingredientIndex].amount = newAmount :
+          this.ingredients.splice(ingredientIndex, 1);
       });
     }
   }

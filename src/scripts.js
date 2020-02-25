@@ -15,10 +15,8 @@ import User from './user';
 import Recipe from './recipe';
 
 let fullRecipeInfo = document.querySelector(".recipe-instructions");
-let pantryInfo = [];
 let recipes = [];
 let searchInput = document.querySelector("#search-input");
-let tagList = document.querySelector(".tag-list");
 let user;
 let allIngredients;
 let randNum;
@@ -38,7 +36,6 @@ $('#search').on("submit", pressEnterSearch);
 
 // GENERATE A USER ON LOAD
 function generateUser() {
-  let ingredientInfo = null;
 
   fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/users/wcUsersData')
     .then(response => response.json())
@@ -115,20 +112,6 @@ function findTaggedRecipes(selected) {
       displayRecipes(matchedRecipes);
     })
     .catch(error => console.log(error.message));
-}
-
-function filterRecipes(filtered) {
-  let foundRecipes = recipes.filter(recipe => {
-    return !filtered.includes(recipe);
-  });
-  hideUnselectedRecipes(foundRecipes);
-}
-
-function hideUnselectedRecipes(foundRecipes) {
-  foundRecipes.forEach(recipe => {
-    let domRecipe = document.getElementById(`${recipe.id}`);
-    domRecipe.style.display = "none";
-  });
 }
 
 // FAVORITE RECIPE FUNCTIONALITY
@@ -221,19 +204,6 @@ function searchRecipes() {
     .catch(error => console.log(error.message))
 }
 
-function filterNonSearched(filtered) {
-  let found = recipes.filter(recipe => {
-    let ids = filtered.map(f => f.id);
-    return !ids.includes(recipe.id)
-  })
-  hideUnselectedRecipes(found);
-}
-
-function createRecipeObject(recipes) {
-  recipes = recipes.map(recipe => new Recipe(recipe));
-  return recipes
-}
-
 function showAllRecipes() {
   fetch('https://fe-apps.herokuapp.com/api/v1/whats-cookin/1911/recipes/recipeData')
     .then(response => response.json())
@@ -270,23 +240,6 @@ function findCheckedPantryBoxes() {
     })
     .catch(err => console.log(err.message));
 
-}
-
-function findRecipesWithCheckedIngredients(selected) {
-  let recipeChecker = (arr, target) => target.every(v => arr.includes(v));
-  let ingredientNames = selected.map(item => {
-    return item.id;
-  })
-  recipes.forEach(recipe => {
-    let allRecipeIngredients = [];
-    recipe.ingredients.forEach(ingredient => {
-      allRecipeIngredients.push(ingredient.name);
-    });
-    if (!recipeChecker(allRecipeIngredients, ingredientNames)) {
-      let domRecipe = document.getElementById(`${recipe.id}`);
-      domRecipe.style.display = "none";
-    }
-  })
 }
 
 function purchaseMissingIngredients(event) {

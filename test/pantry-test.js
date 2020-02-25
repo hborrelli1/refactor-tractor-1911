@@ -8,7 +8,6 @@ describe('Pantry', function() {
   let pantry;
   let userInfo;
   let recipe;
-  let recipe2;
 
   before(function() {
     userInfo = data[0].pantry;
@@ -22,27 +21,6 @@ describe('Pantry', function() {
           "id": 20081,
           "quantity": {
             "amount": 18.5,
-            "unit": "c"
-          }
-        },
-        {
-          "name": "baking soda",
-          "id": 18372,
-          "quantity": {
-            "amount": 0.5,
-            "unit": "tsp"
-          }
-        }
-      ]};
-
-    recipe2 = {
-      name: 'Chicken Parm',
-      ingredients: [
-        {
-          "name": "all purpose flour",
-          "id": 20081,
-          "quantity": {
-            "amount": 6.5,
             "unit": "c"
           }
         },

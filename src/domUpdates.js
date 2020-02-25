@@ -99,8 +99,8 @@ let domUpdates = {
   },
 
   exitRecipe(fullRecipeInfo) {
-    while (fullRecipeInfo.firstChild &&
-      fullRecipeInfo.removeChild(fullRecipeInfo.firstChild));
+    fullRecipeInfo.firstChild
+      && fullRecipeInfo.removeChild(fullRecipeInfo.firstChild);
     $('.recipe-instructions').css('display', 'none');
     $("#overlay").remove();
   },
