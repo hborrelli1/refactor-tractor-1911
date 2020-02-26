@@ -1,0 +1,48 @@
+/* BUTTONS */
+button {
+  &:disabled {
+    cursor:no-drop;
+    opacity:.5;
+  }
+}
+.filter-btn {
+  background-color: $grey-green;
+  border: 0;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  font-family: $main-font;
+  font-size: 12pt;
+  font-weight: bold;
+  padding: 5px 10px 5px 10px;
+  &:hover {
+    background-color: #84C8A4;
+  }
+}
+
+.show-pantry-recipes-btn {
+  @extend .filter-btn;
+  margin-top: 10px;
+}
+
+.show-all-btn {
+  @extend .filter-btn;
+  height: 40px;
+  margin-top: 20px;
+  width: 200px;
+}
+
+.purchase-ingredients {
+  padding: 10px 20px;
+  // border: 2px solid green;
+  @extend .filter-btn;
+
+  span {
+    font-weight:600;
+  }
+}
+
+.cook-recipe {
+  @extend .purchase-ingredients;
+  margin-left:10px;
+}

@@ -8,7 +8,6 @@ import './images/cookbook.png';
 import './images/search.png';
 import './images/chef-1.png';
 
-import './css/base.scss';
 import './css/styles.scss';
 
 import User from './user';
