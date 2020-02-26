@@ -1,0 +1,149 @@
+/* HEADER */
+header {
+  display: flex;
+  flex-direction: row;
+  grid-area: header;
+  padding: 0% 0%;
+  width: 100%;
+}
+
+h1 {
+  align-self: center;
+  color: white;
+  font-family: "Sulphur Point", sans-serif;
+  font-size: 50px;
+  margin: 0%;
+  padding: 0.5% 0.7% 0%;
+  width: 70%;
+}
+
+h2 {
+  color: #4b745e;
+  margin: 10px 0px 10px 0px;
+}
+
+h3 {
+  color: $grey-green;
+  cursor: pointer;
+  height: 17%;
+  margin: 5px 5px 10px 0px;
+  transition: .8s ease;
+}
+
+h4 {
+  color: $grey-green;
+  background-color: $apple-green;
+  border-radius: 3px;
+  margin: 10px 0px 0px 0px;
+  padding: 1px 4px 1px 4px;
+  width: max-content;
+}
+
+span {
+  color: $apple-green;
+  font-weight: 400;
+}
+
+.header-apple-icon {
+  height: 40px;
+  margin-left: 5px;
+  width: 35px;
+}
+
+#search {
+  border-radius: 15px 15px 15px 15px;
+  border: 3px outset $apple-green;
+  box-shadow: 0px 0px 7px 0px #475d74;
+  display: flex;
+  flex-direction: row;
+  font-family: $main-font;
+  justify-content: center;
+  margin: 1.2% 0.5% 1.2% 0%;
+  width: 100%;
+}
+
+#search-input {
+  background-color: #b6dcca;
+  background: -webkit-gradient( linear,left top, left bottom, color-stop(0, rgb(255, 255, 255)), color-stop(1, rgb(225,225,225)));
+  border-radius: 10px 0px 0px 10px;
+  border: none;
+  box-shadow: inset -3px -1px 20px 1px #5c7894;
+  color: $grey-blue;
+  font-family: $main-font;
+  font-size: 42px;
+  height: 100%;
+  padding: 0% 2% 0% 0%;
+  text-align: right;
+  transition: .8s ease;
+  width: 100%;
+  &:hover {
+    box-shadow: inset 0px 0px 0px 0px white;
+    transition: .8s ease;
+  }
+  &:focus {
+    box-shadow: inset 0px 0px 0px 0px white;
+  }
+  &::placeholder {
+    color: $grey-blue;
+    font-size: 20px;
+    text-align: right;
+    text-shadow: none;
+  }
+  &::placeholder {
+    color: $grey-blue;
+    font-size: 20px;
+    text-align: right;
+    text-shadow: none;
+  }
+  &:focus::placeholder {
+    font-size: 0px;
+    transition: .8s ease;
+  }
+}
+
+.search-label {
+  display: none;
+}
+
+.search-btn {
+  border-left: 3px outset $apple-green;
+  border-radius: 0px 15px 15px 0px;
+  padding: 1%;
+}
+
+.nav-btn {
+  align-items: center;
+  background: $grey-blue no-repeat;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  font-size: 0px;
+  font-weight: 700;
+  justify-content: center;
+  margin: 0%;
+  overflow: hidden;
+  text-align: center;
+  transition: .4s ease;
+  width: 15%;
+  img {
+    max-height: 40px;
+    max-width: 40px;
+    padding: 2px 0px;
+  }
+  &.nav-btn:hover {
+    color: $apple-green;
+    font-size: 14px;
+    text-shadow: 0px 2px 4px black;
+    transition: .4s ease;
+  }
+}
+
+.saved-ingredients-btn {
+  border-left: 3px solid $apple-green;
+}
+
+.ing-pan-btn {
+  margin: 1% 0%;
+  padding: 1px 6px 5px 0px;
+}

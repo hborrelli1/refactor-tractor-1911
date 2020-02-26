@@ -1,0 +1,70 @@
+.recipe-card {
+  background-color: white;
+  border: 2px solid $apple-green;
+  border-radius: 7px;
+  cursor: pointer;
+  height: 270px;
+  margin: 20px;
+  padding: 15px;
+  width: 250px;
+  &:hover {
+    .card-photo-preview {
+      opacity: 50%;
+      transition: .8s ease;
+    }
+    .text {
+      font-size: 20px;
+      opacity: 100%;
+      transition: .5s ease;
+      width: 100%;
+    }
+    h3 {
+      text-shadow: 0px 0px 4px $apple-green;
+      transition: .8s ease;
+    }
+  }
+}
+
+.card-apple-icon, .chef-icon {
+  cursor: pointer;
+  float: right;
+  height: 50px;
+  padding-bottom: 10px;
+  width: 45px;
+}
+
+.chef-icon {
+  margin-right:10px;
+}
+
+.card-photo-preview {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 7px;
+  cursor: pointer;
+  height: 130px;
+  transition: .8s ease;
+  width: 100%;
+}
+
+.card-photo-container {
+  align-items: center;
+  display: flex;
+  height: 130px;
+  justify-content: center;
+  position: relative;
+}
+
+.text {
+  background: $grey-green;
+  color: white;
+  font-weight: 700;
+  font-size: 0px;
+  opacity: 0%;
+  padding: 0%;
+  position: absolute;
+  text-align: center;
+  width: 0%;
+  transition: .5s ease;
+}
